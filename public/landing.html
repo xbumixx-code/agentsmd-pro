@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgentsMD — Готовый AGENTS.md за 30 секунд</title>
-  <meta name="description" content="Генератор AGENTS.md файлов для Claude Code, Cursor и AI-агентов. Описание проекта → готовые инструкции за 30 секунд.">
+  <title>AgentsMD — Ready AGENTS.md in 30 seconds</title>
+  <meta name="description" content="AGENTS.md generator for Claude Code, Cursor and AI agents. Project description → ready instructions in 30 seconds.">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/landing.css">
   <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
 </head>
 <body class="landing-body">
 
@@ -16,9 +17,10 @@
     <div class="l-container">
       <a href="/" class="logo">AgentsMD<span class="logo-dot">.pro</span></a>
       <nav class="l-nav">
-        <a href="#how">Как это работает</a>
-        <a href="#pricing">Цены</a>
-        <a href="index.html" class="l-nav-cta">Попробовать →</a>
+        <a href="#how" data-i18n="landing.nav_how">How it works</a>
+        <a href="#pricing" data-i18n="landing.nav_pricing">Pricing</a>
+        <a href="index.html" class="l-nav-cta" data-i18n="landing.nav_try">Try it →</a>
+        <button class="lang-btn btn-link" onclick="switchLang()" style="font-size:13px;cursor:pointer;background:none;border:none;color:inherit;padding:0;">RU</button>
       </nav>
     </div>
   </header>
@@ -26,36 +28,36 @@
   <!-- ---- HERO ---- -->
   <section class="l-hero">
     <div class="l-container l-hero-inner">
-      <div class="l-badge">Для Claude Code · Cursor · GitHub Copilot</div>
-      <h1 class="l-h1">Готовый <code>AGENTS.md</code><br>за 30 секунд</h1>
-      <p class="l-sub">Напишите описание проекта — получите полный файл инструкций для AI-агентов.<br>Структура, правила, стек, команды — всё готово к вставке.</p>
-      <a href="index.html" class="l-cta-btn">Сгенерировать бесплатно →</a>
-      <p class="l-cta-note">3 генерации бесплатно · Без регистрации</p>
+      <div class="l-badge" data-i18n="landing.badge">For Claude Code · Cursor · GitHub Copilot</div>
+      <h1 class="l-h1" data-i18n-html="landing.h1">Ready <code>AGENTS.md</code><br>in 30 seconds</h1>
+      <p class="l-sub" data-i18n-html="landing.sub">Write a project description — get a complete instruction file for AI agents.<br>Stack, rules, commands — all ready to paste.</p>
+      <a href="index.html" class="l-cta-btn" data-i18n="landing.cta">Generate for free →</a>
+      <p class="l-cta-note" data-i18n="landing.cta_note">3 free generations · No signup required</p>
     </div>
   </section>
 
-  <!-- ---- PAIN ---- -->
+  <!-- ---- PAIN vs GOOD ---- -->
   <section class="l-section" id="how">
     <div class="l-container">
       <div class="l-two-col">
         <div class="l-col">
-          <div class="l-col-label">Сейчас</div>
-          <h2 class="l-h2">Часы на настройку агента</h2>
+          <div class="l-col-label" data-i18n="landing.pain_label">Now</div>
+          <h2 class="l-h2" data-i18n="landing.pain_h2">Hours of agent setup</h2>
           <ul class="l-pain-list">
-            <li>Изучаешь документацию Claude Code / Cursor</li>
-            <li>Пишешь правила с нуля — и угадываешь что нужно</li>
-            <li>Забываешь секции, перечитываешь примеры</li>
-            <li>Агент всё равно делает что хочет — правила неточные</li>
+            <li data-i18n="landing.pain_1">Reading Claude Code / Cursor docs</li>
+            <li data-i18n="landing.pain_2">Writing rules from scratch — guessing what's needed</li>
+            <li data-i18n="landing.pain_3">Forgetting sections, re-reading examples</li>
+            <li data-i18n="landing.pain_4">The agent still does what it wants — rules are vague</li>
           </ul>
         </div>
         <div class="l-col l-col-right">
-          <div class="l-col-label l-col-label-good">С AgentsMD</div>
-          <h2 class="l-h2">30 секунд и готово</h2>
+          <div class="l-col-label l-col-label-good" data-i18n="landing.good_label">With AgentsMD</div>
+          <h2 class="l-h2" data-i18n="landing.good_h2">30 seconds and done</h2>
           <ul class="l-good-list">
-            <li>Описываешь проект одним абзацем</li>
-            <li>Получаешь структурированный AGENTS.md</li>
-            <li>Все секции на месте: стек, правила, команды</li>
-            <li>Агент понимает контекст с первого запроса</li>
+            <li data-i18n="landing.good_1">Describe the project in one paragraph</li>
+            <li data-i18n="landing.good_2">Get a structured AGENTS.md</li>
+            <li data-i18n="landing.good_3">All sections included: stack, rules, commands</li>
+            <li data-i18n="landing.good_4">The agent understands context from the first request</li>
           </ul>
         </div>
       </div>
@@ -65,37 +67,37 @@
   <!-- ---- WHAT'S INSIDE ---- -->
   <section class="l-section l-section-gray">
     <div class="l-container">
-      <h2 class="l-section-title">Что входит в каждый файл</h2>
+      <h2 class="l-section-title" data-i18n="landing.features_title">What's inside every file</h2>
       <div class="l-features-grid">
         <div class="l-feature">
           <div class="l-feature-num">01</div>
-          <div class="l-feature-title">Project Overview</div>
-          <div class="l-feature-desc">Суть проекта в 3 предложениях — агент сразу понимает контекст</div>
+          <div class="l-feature-title" data-i18n="landing.f1_title">Project Overview</div>
+          <div class="l-feature-desc" data-i18n="landing.f1_desc">Project essence in 3 sentences — agent understands context immediately</div>
         </div>
         <div class="l-feature">
           <div class="l-feature-num">02</div>
-          <div class="l-feature-title">Tech Stack</div>
-          <div class="l-feature-desc">Таблица с вашим реальным стеком: слой, инструмент, причина выбора</div>
+          <div class="l-feature-title" data-i18n="landing.f2_title">Tech Stack</div>
+          <div class="l-feature-desc" data-i18n="landing.f2_desc">Table with your actual stack: layer, tool, reason for choice</div>
         </div>
         <div class="l-feature">
           <div class="l-feature-num">03</div>
-          <div class="l-feature-title">Project Structure</div>
-          <div class="l-feature-desc">Дерево директорий с комментариями — агент знает где что лежит</div>
+          <div class="l-feature-title" data-i18n="landing.f3_title">Project Structure</div>
+          <div class="l-feature-desc" data-i18n="landing.f3_desc">Directory tree with comments — agent knows where everything lives</div>
         </div>
         <div class="l-feature">
           <div class="l-feature-num">04</div>
-          <div class="l-feature-title">Development Rules</div>
-          <div class="l-feature-desc">10–15 конкретных правил: нейминг, обработка ошибок, паттерны</div>
+          <div class="l-feature-title" data-i18n="landing.f4_title">Development Rules</div>
+          <div class="l-feature-desc" data-i18n="landing.f4_desc">10–15 specific rules: naming, error handling, patterns</div>
         </div>
         <div class="l-feature">
           <div class="l-feature-num">05</div>
-          <div class="l-feature-title">Key Commands</div>
-          <div class="l-feature-desc">Bash-блок: запуск, тесты, деплой — агент не будет угадывать</div>
+          <div class="l-feature-title" data-i18n="landing.f5_title">Key Commands</div>
+          <div class="l-feature-desc" data-i18n="landing.f5_desc">Bash block: run, test, deploy — agent won't have to guess</div>
         </div>
         <div class="l-feature">
           <div class="l-feature-num">06</div>
-          <div class="l-feature-title">What NOT to Do</div>
-          <div class="l-feature-desc">Список запретов — предотвращает 90% типичных ошибок агента</div>
+          <div class="l-feature-title" data-i18n="landing.f6_title">What NOT to Do</div>
+          <div class="l-feature-desc" data-i18n="landing.f6_desc">Prohibition list — prevents 90% of typical agent mistakes</div>
         </div>
       </div>
     </div>
@@ -104,44 +106,44 @@
   <!-- ---- PRICING ---- -->
   <section class="l-section" id="pricing">
     <div class="l-container">
-      <h2 class="l-section-title">Сколько стоит?</h2>
+      <h2 class="l-section-title" data-i18n="landing.pricing_title">How much does it cost?</h2>
       <div class="l-free-block">
-        <div class="l-free-badge">Бесплатно</div>
-        <h3 class="l-free-title">Безлимитные генерации · Навсегда</h3>
-        <p class="l-free-sub">Никаких подписок и лимитов. Приноси свой API ключ (Claude или OpenAI) и генерируй сколько угодно.</p>
+        <div class="l-free-badge" data-i18n="landing.free_badge">Free</div>
+        <h3 class="l-free-title" data-i18n="landing.free_title">Unlimited generations · Forever</h3>
+        <p class="l-free-sub" data-i18n="landing.free_sub">No subscriptions or limits. Bring your own API key (Claude or OpenAI) and generate as much as you want.</p>
         <ul class="l-free-features">
-          <li>✓ Безлимитные генерации</li>
-          <li>✓ Claude и OpenAI на выбор</li>
-          <li>✓ Все 6 шаблонов</li>
-          <li>✓ Копировать и скачать</li>
-          <li>✓ Ваш ключ — ваши данные</li>
+          <li data-i18n="landing.free_f1">✓ Unlimited generations</li>
+          <li data-i18n="landing.free_f2">✓ Claude and OpenAI to choose from</li>
+          <li data-i18n="landing.free_f3">✓ All 6 templates</li>
+          <li data-i18n="landing.free_f4">✓ Copy and download</li>
+          <li data-i18n="landing.free_f5">✓ Your key — your data</li>
         </ul>
-        <a href="index.html" class="l-cta-btn" style="display:inline-block;margin-top:1.5rem;">Попробовать бесплатно →</a>
+        <a href="index.html" class="l-cta-btn" style="display:inline-block;margin-top:1.5rem;" data-i18n="landing.free_cta">Try for free →</a>
       </div>
-      <p class="l-donate-note">Каждые несколько генераций мы скромно попросим поддержать проект ☕<br>Без давления, без обязательств — только если понравилось.</p>
+      <p class="l-donate-note" data-i18n-html="landing.donate_note">Every few generations we'll humbly ask you to support the project ☕<br>No pressure, no obligation — only if you liked it.</p>
     </div>
   </section>
 
   <!-- ---- FAQ ---- -->
   <section class="l-section l-section-gray">
     <div class="l-container">
-      <h2 class="l-section-title">Вопросы</h2>
+      <h2 class="l-section-title" data-i18n="landing.faq_title">Questions</h2>
       <div class="l-faq">
         <details class="l-faq-item">
-          <summary>Что такое AGENTS.md и зачем он нужен?</summary>
-          <p>AGENTS.md — файл инструкций в корне проекта, который объясняет AI-агенту (Claude Code, Cursor, Copilot) как работать с кодовой базой. Без него агент угадывает стек, паттерны и правила. С ним — работает как опытный член команды.</p>
+          <summary data-i18n="landing.faq1_q">What is AGENTS.md and why do I need it?</summary>
+          <p data-i18n="landing.faq1_a">AGENTS.md is an instruction file in the project root that explains to an AI agent (Claude Code, Cursor, Copilot) how to work with the codebase. Without it the agent guesses the stack, patterns, and rules. With it — it works like an experienced team member.</p>
         </details>
         <details class="l-faq-item">
-          <summary>Можно ли использовать без регистрации?</summary>
-          <p>Да. Первые 3 генерации бесплатны и не требуют входа. Регистрация нужна для сохранения истории.</p>
+          <summary data-i18n="landing.faq2_q">Can I use it without signing up?</summary>
+          <p data-i18n="landing.faq2_a">Yes. Bring your own API key (Claude or OpenAI) and generate unlimited files. No login required.</p>
         </details>
         <details class="l-faq-item">
-          <summary>Это подписка или разовый платёж?</summary>
-          <p>Разовый платёж $19 — Pro навсегда. Никаких ежемесячных списаний.</p>
+          <summary data-i18n="landing.faq3_q">Is it a subscription or a one-time payment?</summary>
+          <p data-i18n="landing.faq3_a">The service is free. Every few generations we ask for a voluntary donation to support the project.</p>
         </details>
         <details class="l-faq-item">
-          <summary>Для каких языков и фреймворков работает?</summary>
-          <p>Для любых. Генератор понимает описание на русском и английском и адаптируется под любой стек: Python, JavaScript, Go, Rust, мобильная разработка, данные, DevOps.</p>
+          <summary data-i18n="landing.faq4_q">What languages and frameworks does it support?</summary>
+          <p data-i18n="landing.faq4_a">Any. The generator understands descriptions in Russian and English and adapts to any stack: Python, JavaScript, Go, Rust, mobile, data, DevOps.</p>
         </details>
       </div>
     </div>
@@ -150,9 +152,9 @@
   <!-- ---- CTA BOTTOM ---- -->
   <section class="l-section l-cta-bottom">
     <div class="l-container l-cta-center">
-      <h2 class="l-h2">Попробуйте прямо сейчас</h2>
-      <p class="l-sub">3 генерации бесплатно. Без кредитной карты.</p>
-      <a href="index.html" class="l-cta-btn">Сгенерировать AGENTS.md →</a>
+      <h2 class="l-h2" data-i18n="landing.cta_bottom_h2">Try it right now</h2>
+      <p class="l-sub" data-i18n="landing.cta_bottom_sub">Unlimited generations. No credit card.</p>
+      <a href="index.html" class="l-cta-btn" data-i18n="landing.cta_bottom_btn">Generate AGENTS.md →</a>
     </div>
   </section>
 
@@ -160,13 +162,9 @@
   <footer class="l-footer">
     <div class="l-container">
       <span class="logo">AgentsMD<span class="logo-dot">.pro</span></span>
-      <span class="l-footer-copy">© 2026 · Made with Claude Code</span>
+      <span class="l-footer-copy" data-i18n="landing.footer_copy">© 2026 · Made with Claude Code</span>
     </div>
   </footer>
 
-  <script>
-    // Подставить реальный URL checkout из config
-    document.getElementById('buy-btn').href = window._config?.LS_CHECKOUT_URL || '#';
-  </script>
 </body>
 </html>

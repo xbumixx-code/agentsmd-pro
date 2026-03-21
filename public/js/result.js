@@ -1,11 +1,11 @@
 // frontend/js/result.js — AgentsMD.pro
-// Логика страницы результата: рендер markdown, копирование, скачивание
+// Result page logic: markdown render, copy, download
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Загрузить результат из sessionStorage
+  // Load result from sessionStorage
   const raw = sessionStorage.getItem('agentsmd_result');
   if (!raw) {
-    // Нет данных — вернуться на главную
+    // No data — go back to main page
     window.location.href = 'index.html';
     return;
   }
@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const { content, tokens_used, generation_id, remaining } = result;
 
-  // Отрендерить markdown с подсветкой кода
+  // Render markdown with syntax highlighting
   const contentEl = document.getElementById('result-content');
   const rawEl = document.getElementById('raw-content');
 
   if (contentEl && content) {
-    // Настроить marked с highlight.js
+    // Configure marked with highlight.js
     marked.setOptions({
       highlight: (code, lang) => {
         if (lang && hljs.getLanguage(lang)) {
@@ -39,43 +39,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contentEl.innerHTML = marked.parse(content);
 
-    // Подсветить все блоки кода
+    // Highlight all code blocks
     contentEl.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
   }
 
-  // Сохранить сырой текст для копирования
+  // Save raw text for copying
   if (rawEl) rawEl.value = content || '';
 
-  // Показать метаданные
+  // Show token count
   const tokensEl = document.getElementById('tokens-info');
   if (tokensEl && tokens_used) {
-    tokensEl.textContent = `${tokens_used} токенов`;
+    const tokensLabel = (typeof t === 'function') ? t('result.tokens') : 'tokens';
+    tokensEl.textContent = `${tokens_used} ${tokensLabel}`;
   }
 
-  // Показать счётчик оставшихся генераций (если free)
-  if (remaining !== null && remaining !== undefined) {
-    const badge = document.createElement('span');
-    badge.className = 'remaining-badge';
-    badge.textContent = remaining > 0
-      ? `Осталось ${remaining} из 3 бесплатных`
-      : 'Бесплатные генерации закончились';
-    document.querySelector('.result-actions')?.prepend(badge);
-  }
-
-  // ---- Кнопка Копировать ----
+  // ---- Copy button ----
   document.getElementById('copy-btn')?.addEventListener('click', async () => {
     const text = rawEl.value;
     try {
       await navigator.clipboard.writeText(text);
     } catch {
-      // Fallback для старых браузеров
+      // Fallback for older browsers
       rawEl.select();
       document.execCommand('copy');
     }
     showToast();
   });
 
-  // ---- Кнопка Скачать ----
+  // ---- Download button ----
   document.getElementById('download-btn')?.addEventListener('click', () => {
     const text = rawEl.value;
     const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
@@ -87,19 +78,21 @@ document.addEventListener('DOMContentLoaded', () => {
     URL.revokeObjectURL(url);
   });
 
-  // ---- Кнопка Регенерировать ----
+  // ---- Regenerate button ----
   document.getElementById('regen-btn')?.addEventListener('click', () => {
-    // Восстановить данные формы и перейти обратно
+    // Restore form data and go back
     if (result.input) {
       sessionStorage.setItem('agentsmd_prefill', JSON.stringify(result.input));
     }
     window.location.href = 'index.html';
   });
 
-  // Показать toast уведомление
+  // Show toast notification
   function showToast() {
     const toast = document.getElementById('copy-toast');
     if (!toast) return;
+    // Update text from i18n if available
+    if (typeof t === 'function') toast.textContent = t('result.copied');
     toast.style.display = 'block';
     setTimeout(() => { toast.style.display = 'none'; }, 2500);
   }

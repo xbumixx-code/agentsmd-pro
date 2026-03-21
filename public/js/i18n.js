@@ -1,0 +1,305 @@
+// public/js/i18n.js — AgentsMD.pro
+// Internationalization: EN (default) / RU
+
+const TRANSLATIONS = {
+  en: {
+    // Header
+    'header.about': 'About',
+
+    // API Key block
+    'apikey.label': 'API Key',
+    'apikey.not_set': 'not set',
+    'apikey.hint_claude': 'Claude key: <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a>. Starts with <code>sk-ant-</code>',
+    'apikey.hint_openai': 'OpenAI key (<code>gpt-5.4-mini</code>): <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a>. Starts with <code>sk-</code>',
+    'apikey.placeholder': 'sk-...',
+    'apikey.save': 'Save',
+    'apikey.saved': '✓ Key saved and encrypted',
+
+    // Templates
+    'templates.label': 'Quick start:',
+
+    // Form
+    'form.description_label': 'Describe your project',
+    'form.description_placeholder': 'Example: Python FastAPI backend for a SaaS. PostgreSQL, Redis for caching. Deployed on Railway. Solo developer.',
+    'form.type_label': 'Agent type',
+    'form.type_code': 'Code — development',
+    'form.type_data': 'Data — analytics',
+    'form.type_ops': 'Ops — infrastructure / DevOps',
+    'form.type_research': 'Research — analysis',
+    'form.team_label': 'Team size',
+    'form.team_solo': 'Solo (1 person)',
+    'form.team_small': 'Small (2–5)',
+    'form.team_team': 'Team (5+)',
+    'form.lang_label': 'Output language',
+    'form.lang_auto': 'Auto (match input)',
+    'form.lang_ru': 'Russian',
+    'form.lang_en': 'English',
+    'form.tech_label': 'Technologies (comma-separated)',
+    'form.tech_placeholder': 'Python, FastAPI, PostgreSQL, Redis, Docker',
+    'form.submit': 'Generate AGENTS.md',
+    'form.generating': 'Generating...',
+    'form.error_apikey': 'Enter your API key in the block above',
+    'form.error_network': 'No connection. Check your internet and try again.',
+    'form.error_generic': 'Generation error, please try again',
+
+    // Modal upgrade/donate
+    'modal.continue': 'No thanks, continue for free',
+
+    // Result page
+    'result.copy': 'Copy',
+    'result.copied': '✓ Copied to clipboard',
+    'result.download': 'Download AGENTS.md',
+    'result.regen': 'Regenerate',
+    'result.new': '+ New file',
+    'result.loading': 'Loading result...',
+    'result.tokens': 'tokens',
+
+    // Footer
+    'footer.about': 'About',
+    'footer.pricing': 'Pricing',
+
+    // Landing
+    'landing.nav_how': 'How it works',
+    'landing.nav_pricing': 'Pricing',
+    'landing.nav_try': 'Try it →',
+    'landing.badge': 'For Claude Code · Cursor · GitHub Copilot',
+    'landing.h1': 'Ready <code>AGENTS.md</code><br>in 30 seconds',
+    'landing.sub': 'Write a project description — get a complete instruction file for AI agents.<br>Stack, rules, commands — all ready to paste.',
+    'landing.cta': 'Generate for free →',
+    'landing.cta_note': '3 free generations · No signup required',
+    'landing.pain_label': 'Now',
+    'landing.pain_h2': 'Hours of agent setup',
+    'landing.pain_1': 'Reading Claude Code / Cursor docs',
+    'landing.pain_2': 'Writing rules from scratch — guessing what\'s needed',
+    'landing.pain_3': 'Forgetting sections, re-reading examples',
+    'landing.pain_4': 'The agent still does what it wants — rules are vague',
+    'landing.good_label': 'With AgentsMD',
+    'landing.good_h2': '30 seconds and done',
+    'landing.good_1': 'Describe the project in one paragraph',
+    'landing.good_2': 'Get a structured AGENTS.md',
+    'landing.good_3': 'All sections included: stack, rules, commands',
+    'landing.good_4': 'The agent understands context from the first request',
+    'landing.features_title': 'What\'s inside every file',
+    'landing.f1_title': 'Project Overview',
+    'landing.f1_desc': 'Project essence in 3 sentences — agent understands context immediately',
+    'landing.f2_title': 'Tech Stack',
+    'landing.f2_desc': 'Table with your actual stack: layer, tool, reason for choice',
+    'landing.f3_title': 'Project Structure',
+    'landing.f3_desc': 'Directory tree with comments — agent knows where everything lives',
+    'landing.f4_title': 'Development Rules',
+    'landing.f4_desc': '10–15 specific rules: naming, error handling, patterns',
+    'landing.f5_title': 'Key Commands',
+    'landing.f5_desc': 'Bash block: run, test, deploy — agent won\'t have to guess',
+    'landing.f6_title': 'What NOT to Do',
+    'landing.f6_desc': 'Prohibition list — prevents 90% of typical agent mistakes',
+    'landing.pricing_title': 'How much does it cost?',
+    'landing.free_badge': 'Free',
+    'landing.free_title': 'Unlimited generations · Forever',
+    'landing.free_sub': 'No subscriptions or limits. Bring your own API key (Claude or OpenAI) and generate as much as you want.',
+    'landing.free_f1': '✓ Unlimited generations',
+    'landing.free_f2': '✓ Claude and OpenAI to choose from',
+    'landing.free_f3': '✓ All 6 templates',
+    'landing.free_f4': '✓ Copy and download',
+    'landing.free_f5': '✓ Your key — your data',
+    'landing.free_cta': 'Try for free →',
+    'landing.donate_note': 'Every few generations we\'ll humbly ask you to support the project ☕<br>No pressure, no obligation — only if you liked it.',
+    'landing.faq_title': 'Questions',
+    'landing.faq1_q': 'What is AGENTS.md and why do I need it?',
+    'landing.faq1_a': 'AGENTS.md is an instruction file in the project root that explains to an AI agent (Claude Code, Cursor, Copilot) how to work with the codebase. Without it the agent guesses the stack, patterns, and rules. With it — it works like an experienced team member.',
+    'landing.faq2_q': 'Can I use it without signing up?',
+    'landing.faq2_a': 'Yes. Bring your own API key (Claude or OpenAI) and generate unlimited files. No login required.',
+    'landing.faq3_q': 'Is it a subscription or a one-time payment?',
+    'landing.faq3_a': 'The service is free. Every few generations we ask for a voluntary donation to support the project.',
+    'landing.faq4_q': 'What languages and frameworks does it support?',
+    'landing.faq4_a': 'Any. The generator understands descriptions in Russian and English and adapts to any stack: Python, JavaScript, Go, Rust, mobile, data, DevOps.',
+    'landing.cta_bottom_h2': 'Try it right now',
+    'landing.cta_bottom_sub': 'Unlimited generations. No credit card.',
+    'landing.cta_bottom_btn': 'Generate AGENTS.md →',
+    'landing.footer_copy': '© 2026 · Made with Claude Code',
+  },
+
+  ru: {
+    // Header
+    'header.about': 'О сервисе',
+
+    // API Key block
+    'apikey.label': 'API ключ',
+    'apikey.not_set': 'не задан',
+    'apikey.hint_claude': 'Ключ Claude: <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a>. Начинается на <code>sk-ant-</code>',
+    'apikey.hint_openai': 'Ключ OpenAI (<code>gpt-5.4-mini</code>): <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a>. Начинается на <code>sk-</code>',
+    'apikey.placeholder': 'sk-...',
+    'apikey.save': 'Сохранить',
+    'apikey.saved': '✓ Ключ сохранён и зашифрован',
+
+    // Templates
+    'templates.label': 'Быстрый старт:',
+
+    // Form
+    'form.description_label': 'Опиши свой проект',
+    'form.description_placeholder': 'Например: Python FastAPI backend для SaaS-сервиса. PostgreSQL, Redis для кеша. Деплой на Railway. Один разработчик.',
+    'form.type_label': 'Тип агента',
+    'form.type_code': 'Code — разработка',
+    'form.type_data': 'Data — данные/аналитика',
+    'form.type_ops': 'Ops — инфраструктура/DevOps',
+    'form.type_research': 'Research — ресёрч/анализ',
+    'form.team_label': 'Размер команды',
+    'form.team_solo': 'Solo (1 чел)',
+    'form.team_small': 'Small (2–5 чел)',
+    'form.team_team': 'Team (5+ чел)',
+    'form.lang_label': 'Язык файла',
+    'form.lang_auto': 'Авто (как ввод)',
+    'form.lang_ru': 'Русский',
+    'form.lang_en': 'English',
+    'form.tech_label': 'Технологии (через запятую)',
+    'form.tech_placeholder': 'Python, FastAPI, PostgreSQL, Redis, Docker',
+    'form.submit': 'Сгенерировать AGENTS.md',
+    'form.generating': 'Генерирую...',
+    'form.error_apikey': 'Введите ваш API ключ в блоке выше',
+    'form.error_network': 'Нет соединения, проверьте интернет и попробуйте ещё раз',
+    'form.error_generic': 'Ошибка генерации, попробуйте ещё раз',
+
+    // Modal
+    'modal.continue': 'Нет, продолжу бесплатно',
+
+    // Result page
+    'result.copy': 'Копировать',
+    'result.copied': '✓ Скопировано в буфер обмена',
+    'result.download': 'Скачать AGENTS.md',
+    'result.regen': 'Регенерировать',
+    'result.new': '+ Новый файл',
+    'result.loading': 'Загружаем результат...',
+    'result.tokens': 'токенов',
+
+    // Footer
+    'footer.about': 'О сервисе',
+    'footer.pricing': 'Цены',
+
+    // Landing
+    'landing.nav_how': 'Как это работает',
+    'landing.nav_pricing': 'Цены',
+    'landing.nav_try': 'Попробовать →',
+    'landing.badge': 'Для Claude Code · Cursor · GitHub Copilot',
+    'landing.h1': 'Готовый <code>AGENTS.md</code><br>за 30 секунд',
+    'landing.sub': 'Напишите описание проекта — получите полный файл инструкций для AI-агентов.<br>Структура, правила, стек, команды — всё готово к вставке.',
+    'landing.cta': 'Сгенерировать бесплатно →',
+    'landing.cta_note': '3 генерации бесплатно · Без регистрации',
+    'landing.pain_label': 'Сейчас',
+    'landing.pain_h2': 'Часы на настройку агента',
+    'landing.pain_1': 'Изучаешь документацию Claude Code / Cursor',
+    'landing.pain_2': 'Пишешь правила с нуля — и угадываешь что нужно',
+    'landing.pain_3': 'Забываешь секции, перечитываешь примеры',
+    'landing.pain_4': 'Агент всё равно делает что хочет — правила неточные',
+    'landing.good_label': 'С AgentsMD',
+    'landing.good_h2': '30 секунд и готово',
+    'landing.good_1': 'Описываешь проект одним абзацем',
+    'landing.good_2': 'Получаешь структурированный AGENTS.md',
+    'landing.good_3': 'Все секции на месте: стек, правила, команды',
+    'landing.good_4': 'Агент понимает контекст с первого запроса',
+    'landing.features_title': 'Что входит в каждый файл',
+    'landing.f1_title': 'Project Overview',
+    'landing.f1_desc': 'Суть проекта в 3 предложениях — агент сразу понимает контекст',
+    'landing.f2_title': 'Tech Stack',
+    'landing.f2_desc': 'Таблица с вашим реальным стеком: слой, инструмент, причина выбора',
+    'landing.f3_title': 'Project Structure',
+    'landing.f3_desc': 'Дерево директорий с комментариями — агент знает где что лежит',
+    'landing.f4_title': 'Development Rules',
+    'landing.f4_desc': '10–15 конкретных правил: нейминг, обработка ошибок, паттерны',
+    'landing.f5_title': 'Key Commands',
+    'landing.f5_desc': 'Bash-блок: запуск, тесты, деплой — агент не будет угадывать',
+    'landing.f6_title': 'What NOT to Do',
+    'landing.f6_desc': 'Список запретов — предотвращает 90% типичных ошибок агента',
+    'landing.pricing_title': 'Сколько стоит?',
+    'landing.free_badge': 'Бесплатно',
+    'landing.free_title': 'Безлимитные генерации · Навсегда',
+    'landing.free_sub': 'Никаких подписок и лимитов. Приноси свой API ключ (Claude или OpenAI) и генерируй сколько угодно.',
+    'landing.free_f1': '✓ Безлимитные генерации',
+    'landing.free_f2': '✓ Claude и OpenAI на выбор',
+    'landing.free_f3': '✓ Все 6 шаблонов',
+    'landing.free_f4': '✓ Копировать и скачать',
+    'landing.free_f5': '✓ Ваш ключ — ваши данные',
+    'landing.free_cta': 'Попробовать бесплатно →',
+    'landing.donate_note': 'Каждые несколько генераций мы скромно попросим поддержать проект ☕<br>Без давления, без обязательств — только если понравилось.',
+    'landing.faq_title': 'Вопросы',
+    'landing.faq1_q': 'Что такое AGENTS.md и зачем он нужен?',
+    'landing.faq1_a': 'AGENTS.md — файл инструкций в корне проекта, который объясняет AI-агенту (Claude Code, Cursor, Copilot) как работать с кодовой базой. Без него агент угадывает стек, паттерны и правила. С ним — работает как опытный член команды.',
+    'landing.faq2_q': 'Можно ли использовать без регистрации?',
+    'landing.faq2_a': 'Да. Принеси свой API ключ (Claude или OpenAI) и генерируй без ограничений. Вход не нужен.',
+    'landing.faq3_q': 'Это подписка или разовый платёж?',
+    'landing.faq3_a': 'Сервис бесплатный. Каждые несколько генераций мы просим поддержать проект добровольным донатом.',
+    'landing.faq4_q': 'Для каких языков и фреймворков работает?',
+    'landing.faq4_a': 'Для любых. Генератор понимает описание на русском и английском и адаптируется под любой стек: Python, JavaScript, Go, Rust, мобильная разработка, данные, DevOps.',
+    'landing.cta_bottom_h2': 'Попробуйте прямо сейчас',
+    'landing.cta_bottom_sub': 'Безлимитные генерации. Без кредитной карты.',
+    'landing.cta_bottom_btn': 'Сгенерировать AGENTS.md →',
+    'landing.footer_copy': '© 2026 · Сделано с Claude Code',
+  }
+};
+
+// Донат-сообщения по языкам
+const DONATE_MESSAGES_I18N = {
+  en: [
+    { title: 'Buy the developer a coffee ☕', sub: 'This AGENTS.md was generated by a real human... well, almost. Claude worked hard, servers hummed. Support with a dollar — or at least kind words.', btn: 'Buy a coffee' },
+    { title: 'Fund a Claude Code subscription 🤖', sub: 'The irony: a service for AI agents was built with an AI agent that costs money. Help close the loop.', btn: 'Support' },
+    { title: 'Send the dev on vacation 🌴', sub: 'The developer hasn\'t left the house in three weeks. He deserves to see the sun. Help him reach the beach.', btn: 'Book the flight' },
+    { title: 'New mechanical keyboard ⌨️', sub: 'Good AGENTS.md files are written on good keyboards. The current one creaks on the letter "e". Help fix that.', btn: 'Buy the keyboard' },
+    { title: 'Keep the dev out of an office job 🏠', sub: 'Without support, it\'s back to working for The Man. The service dies. No more AGENTS.md. You don\'t want that, right?', btn: 'Save the service' },
+    { title: 'Energy drinks for late-night fixes 🔴', sub: 'Bugs happen at 2am. Fixes too. Impossible without energy drinks. You\'ve generated 3 times — time to share.', btn: 'Fuel the developer' },
+    { title: 'Competitor research fund 👀', sub: 'The developer wants to buy ChatGPT Plus and five other subscriptions to know who he\'s up against. It\'s expensive. Help.', btn: 'Fund the intel' },
+    { title: 'Server electricity bill 💡', sub: 'Cloudflare is free, Vercel is almost free — but the API isn\'t. Every AGENTS.md costs real money. Pretend you didn\'t know.', btn: 'Pay the bill' },
+    { title: 'Just because, from the heart 🙏', sub: 'No drama. You use it, you like it — throw in whatever you can spare. The developer will be genuinely grateful for any amount.', btn: 'Toss a coin' },
+    { title: 'Marketing course fund 📈', sub: 'The product is ready, just need to learn how to market it. Courses cost money. Help the developer become slightly less introverted.', btn: 'Invest in growth' },
+  ],
+  ru: [
+    { title: 'На кофе разработчику ☕', sub: 'Этот AGENTS.md сгенерировал живой человек... ну почти. Claude старался, сервер гудел. Поддержи рублём — или хотя бы добрым словом.', btn: 'Угостить кофе' },
+    { title: 'На подписку Claude Code 🤖', sub: 'Ирония в том, что сервис для AI-агентов сделан с помощью AI-агента, за которого надо платить. Помоги замкнуть круг.', btn: 'Поддержать' },
+    { title: 'На отпуск в тёплые страны 🌴', sub: 'Разработчик три недели не выходил из дома. Он заслуживает увидеть солнце. Помоги ему добраться до пляжа.', btn: 'Отправить в отпуск' },
+    { title: 'На новую механическую клавиатуру ⌨️', sub: 'Хорошие AGENTS.md пишутся на хороших клавиатурах. Текущая трещит на букве "е". Помоги исправить это.', btn: 'Купить клавиатуру' },
+    { title: 'Чтобы разработчик не пошёл в офис 🏠', sub: 'Если не поддержать проект — придётся идти работать на дядю. Сервис умрёт. AGENTS.md больше не будет. Ты же не хочешь этого?', btn: 'Спасти сервис' },
+    { title: 'На энергетики для ночных фиксов 🔴', sub: 'Баги случаются в 2 ночи. Фиксы тоже. Без энергетиков это невозможно. Ты уже 3 раза сгенерировал — время делиться.', btn: 'Зарядить разработчика' },
+    { title: 'Чтобы проверить конкурентов 👀', sub: 'Разработчик хочет купить ChatGPT Plus и ещё пять подписок чтобы знать с кем конкурирует. Это дорого. Помоги.', btn: 'Поддержать разведку' },
+    { title: 'На оплату серверов 💡', sub: 'Cloudflare бесплатный, Vercel почти бесплатный, а вот API — нет. Каждый AGENTS.md стоит денег. Сделай вид что не знал.', btn: 'Заплатить за свет' },
+    { title: 'Просто так, от души 🙏', sub: 'Без драмы. Ты пользуешься, тебе нравится — кинь сколько не жалко. Разработчик будет рад любой сумме, честно.', btn: 'Кинуть монетку' },
+    { title: 'На курс по маркетингу 📈', sub: 'Продукт готов, осталось научиться его продавать. Курсы стоят денег. Помоги разработчику стать немного менее интровертом.', btn: 'Инвестировать в рост' },
+  ]
+};
+
+// ---- Core i18n engine ----
+
+let currentLang = localStorage.getItem('agentsmd_lang') || 'en';
+
+function t(key) {
+  return TRANSLATIONS[currentLang]?.[key] ?? TRANSLATIONS['en']?.[key] ?? key;
+}
+
+function getDonateMessages() {
+  return DONATE_MESSAGES_I18N[currentLang] || DONATE_MESSAGES_I18N['en'];
+}
+
+function applyTranslations() {
+  // Text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  // innerHTML (for links/code tags inside)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    el.innerHTML = t(el.dataset.i18nHtml);
+  });
+  // Placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  // Update lang switcher button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.textContent = currentLang === 'en' ? 'RU' : 'EN';
+    btn.title = currentLang === 'en' ? 'Switch to Russian' : 'Switch to English';
+  });
+}
+
+function switchLang() {
+  currentLang = currentLang === 'en' ? 'ru' : 'en';
+  localStorage.setItem('agentsmd_lang', currentLang);
+  applyTranslations();
+}
+
+// Apply on load
+document.addEventListener('DOMContentLoaded', applyTranslations);

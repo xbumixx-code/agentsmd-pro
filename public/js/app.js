@@ -14,7 +14,7 @@ async function saveApiKey() {
   _cachedApiKey = { key, provider };
   updateApiKeyUI({ key, provider });
   const msg = document.getElementById('api-key-message');
-  msg.textContent = '✓ Ключ сохранён и зашифрован';
+  msg.textContent = (typeof t === 'function') ? t('apikey.saved') : '✓ Key saved and encrypted';
   setTimeout(() => { msg.textContent = ''; }, 2000);
 }
 
@@ -51,7 +51,7 @@ function updateApiKeyUI(data) {
     selectProvider(data.provider || 'claude');
   } else {
     dot.className = 'status-dot status-dot--empty';
-    summary.textContent = 'не задан';
+    summary.textContent = (typeof t === 'function') ? t('apikey.not_set') : 'not set';
   }
 }
 
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const chevron = document.getElementById('api-key-chevron');
       body.style.display = '';
       chevron.classList.add('open');
-      showError('Введите ваш API ключ в блоке выше');
+      showError((typeof t === 'function') ? t('form.error_apikey') : 'Enter your API key above');
       return;
     }
 
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (!response.ok) {
         const data = await response.json();
-        showError(data.message || 'Ошибка генерации, попробуйте ещё раз');
+        showError(data.message || ((typeof t === 'function') ? t('form.error_generic') : 'Generation error, please try again'));
         return;
       }
 
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } catch (err) {
       console.error('[AgentsMD] Generate error:', err);
-      showError('Нет соединения, проверьте интернет и попробуйте ещё раз');
+      showError((typeof t === 'function') ? t('form.error_network') : 'No connection. Check your internet and try again.');
     } finally {
       setLoading(false);
     }
@@ -178,8 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     generateBtn.disabled = loading;
     btnText.style.display = loading ? 'none' : 'inline';
     btnLoader.style.display = loading ? 'inline-block' : 'none';
-    if (loading) btnText.textContent = 'Генерирую...';
-    else btnText.textContent = 'Сгенерировать AGENTS.md';
+    if (!loading && typeof t === 'function') btnText.textContent = t('form.submit');
   }
 
   // Показать ошибку под кнопкой

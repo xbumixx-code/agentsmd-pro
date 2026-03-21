@@ -60,7 +60,7 @@ const TRANSLATIONS = {
 
     // Landing
     'landing.nav_how': 'How it works',
-    'landing.nav_pricing': 'Pricing',
+    'landing.nav_donate': 'Donate ☕',
     'landing.nav_try': 'Try it →',
     'landing.badge': 'For Claude Code · Cursor · GitHub Copilot',
     'landing.h1': 'Ready <code>AGENTS.md</code><br>in 30 seconds',
@@ -176,7 +176,7 @@ const TRANSLATIONS = {
 
     // Landing
     'landing.nav_how': 'Как это работает',
-    'landing.nav_pricing': 'Цены',
+    'landing.nav_donate': 'Поддержать ☕',
     'landing.nav_try': 'Попробовать →',
     'landing.badge': 'Для Claude Code · Cursor · GitHub Copilot',
     'landing.h1': 'Готовый <code>AGENTS.md</code><br>за 30 секунд',

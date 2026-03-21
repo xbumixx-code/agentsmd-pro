@@ -18,7 +18,7 @@
       <a href="/" class="logo">AgentsMD<span class="logo-dot">.pro</span></a>
       <nav class="l-nav">
         <a href="#how" data-i18n="landing.nav_how">How it works</a>
-        <a href="#pricing" data-i18n="landing.nav_pricing">Pricing</a>
+        <button class="l-nav-donate" onclick="showLandingDonateModal()" data-i18n="landing.nav_donate">Donate ☕</button>
         <a href="index.html" class="l-nav-cta" data-i18n="landing.nav_try">Try it →</a>
         <button class="lang-btn btn-link" onclick="switchLang()" style="font-size:13px;cursor:pointer;background:none;border:none;color:inherit;padding:0;">RU</button>
       </nav>
@@ -165,6 +165,37 @@
       <span class="l-footer-copy" data-i18n="landing.footer_copy">© 2026 · Made with Claude Code</span>
     </div>
   </footer>
+
+  <!-- ---- DONATE MODAL ---- -->
+  <div id="landing-donate-overlay" class="l-donate-overlay" style="display:none" onclick="if(event.target===this)closeLandingDonateModal()">
+    <div class="l-donate-box">
+      <button class="l-donate-close" onclick="closeLandingDonateModal()">✕</button>
+      <div class="l-donate-title" id="ldm-title"></div>
+      <p class="l-donate-sub" id="ldm-sub"></p>
+      <a id="ldm-btn" href="#" target="_blank" class="l-cta-btn l-donate-cta"></a>
+      <button class="l-donate-skip" onclick="closeLandingDonateModal()" data-i18n="modal.continue">No thanks, continue for free</button>
+    </div>
+  </div>
+
+  <script>
+    // Show random donate message from i18n pool
+    function showLandingDonateModal() {
+      const msgs = getDonateMessages();
+      const m = msgs[Math.floor(Math.random() * msgs.length)];
+      document.getElementById('ldm-title').textContent = m.title;
+      document.getElementById('ldm-sub').textContent = m.sub;
+      const btn = document.getElementById('ldm-btn');
+      btn.textContent = m.btn + ' →';
+      btn.href = window._config?.LS_CHECKOUT_URL || '#';
+      document.getElementById('landing-donate-overlay').style.display = 'flex';
+    }
+    function closeLandingDonateModal() {
+      document.getElementById('landing-donate-overlay').style.display = 'none';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLandingDonateModal();
+    });
+  </script>
 
 </body>
 </html>

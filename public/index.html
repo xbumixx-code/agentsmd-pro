@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentsMD — Генератор AGENTS.md</title>
+  <link rel="stylesheet" href="css/main.css">
+  <script src="js/config.js"></script>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Хедер -->
+    <header class="header">
+      <div class="logo">AgentsMD<span class="logo-dot">.pro</span></div>
+      <div class="auth-status">
+        <a href="landing.html#pricing" class="btn-link" style="font-size:13px;">О сервисе</a>
+      </div>
+    </header>
+
+    <!-- Основная форма -->
+    <main class="main">
+      <div class="hero">
+        <h1>Готовый AGENTS.md<br>за 30 секунд</h1>
+        <p class="hero-sub">Описание проекта → полные инструкции для Claude Code, Cursor и любых AI-агентов</p>
+      </div>
+
+      <!-- API ключ -->
+      <div class="api-key-block" id="api-key-block">
+        <div class="api-key-header" onclick="toggleApiBlock()">
+          <span class="api-key-label">
+            <span id="api-key-status-dot" class="status-dot status-dot--empty"></span>
+            API ключ
+          </span>
+          <span id="api-key-summary" class="api-key-summary">не задан</span>
+          <span class="api-key-chevron" id="api-key-chevron">▼</span>
+        </div>
+        <div class="api-key-body" id="api-key-body" style="display:none;">
+          <div class="provider-tabs">
+            <button class="provider-tab active" id="tab-claude" onclick="selectProvider('claude')">Claude</button>
+            <button class="provider-tab" id="tab-openai" onclick="selectProvider('openai')">OpenAI</button>
+          </div>
+          <div class="api-key-hint" id="api-key-hint-claude">
+            Ключ Claude: <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a>. Начинается на <code>sk-ant-</code>
+          </div>
+          <div class="api-key-hint" id="api-key-hint-openai" style="display:none;">
+            Ключ OpenAI (<code>gpt-5.4-mini</code>): <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a>. Начинается на <code>sk-</code>
+          </div>
+          <div class="api-key-input-row">
+            <input type="password" id="user-api-key" placeholder="sk-..." autocomplete="off" />
+            <button class="btn-secondary" onclick="saveApiKey()">Сохранить</button>
+          </div>
+          <div id="api-key-message" class="api-key-message"></div>
+        </div>
+      </div>
+
+      <!-- Быстрые шаблоны -->
+      <div class="templates-section">
+        <p class="templates-label">Быстрый старт:</p>
+        <div id="templates-grid" class="templates-grid">
+          <!-- Заполняется через templates.js -->
+        </div>
+      </div>
+
+      <!-- Форма -->
+      <div class="form-card">
+        <div class="form-group">
+          <label for="description">Опиши свой проект <span class="required">*</span></label>
+          <textarea
+            id="description"
+            rows="4"
+            placeholder="Например: Python FastAPI backend для SaaS-сервиса. PostgreSQL, Redis для кеша. Деплой на Railway. Один разработчик."
+            maxlength="1000"
+          ></textarea>
+          <div class="char-count"><span id="char-count">0</span>/1000</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="agent-type">Тип агента</label>
+            <select id="agent-type">
+              <option value="code">Code — разработка</option>
+              <option value="data">Data — данные/аналитика</option>
+              <option value="ops">Ops — инфраструктура/DevOps</option>
+              <option value="research">Research — ресёрч/анализ</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="team-size">Размер команды</label>
+            <select id="team-size">
+              <option value="solo">Solo (1 чел)</option>
+              <option value="small">Small (2–5 чел)</option>
+              <option value="team">Team (5+ чел)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="language">Язык файла</label>
+            <select id="language">
+              <option value="auto">Авто (как ввод)</option>
+              <option value="russian">Русский</option>
+              <option value="english">English</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="technologies">Технологии (через запятую)</label>
+          <input
+            type="text"
+            id="technologies"
+            placeholder="Python, FastAPI, PostgreSQL, Redis, Docker"
+          />
+        </div>
+
+        <button id="generate-btn" class="btn-primary" disabled>
+          <span id="btn-text">Сгенерировать AGENTS.md</span>
+          <span id="btn-loader" class="loader" style="display: none;"></span>
+        </button>
+      </div>
+
+    </main>
+
+    <!-- Ссылка на лендинг -->
+    <footer class="footer">
+      <a href="landing.html">О сервисе</a> · <a href="landing.html#pricing">Цены</a>
+    </footer>
+  </div>
+
+  <!-- Upgrade Modal (скрыт, показывается через paywall.js) -->
+  <div id="upgrade-overlay" class="modal-overlay" style="display: none;">
+    <div class="modal">
+      <div class="modal-icon">⚡</div>
+      <h2 class="modal-title">Вы использовали все 3 бесплатных генерации</h2>
+      <p class="modal-sub">Pro открывает безлимитные генерации + историю всех файлов</p>
+      <a id="upgrade-btn" href="#" class="btn-primary modal-cta">Получить Pro — $19</a>
+      <button onclick="document.getElementById('upgrade-overlay').style.display='none'" class="btn-link">Продолжить с Free</button>
+    </div>
+  </div>
+
+  <script src="js/crypto.js"></script>
+  <script src="js/templates.js"></script>
+  <script src="js/paywall.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

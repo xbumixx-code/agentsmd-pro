@@ -1,0 +1,7 @@
+.dev.vars
+.dev.vars.txt
+.env.local
+.env
+.wrangler
+node_modules
+.DS_Store

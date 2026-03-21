@@ -1,0 +1,7 @@
+{
+  "outputDirectory": "public",
+  "functions": {
+    "api/generate.js": { "runtime": "edge" },
+    "api/health.js": { "runtime": "edge" }
+  }
+}

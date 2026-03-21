@@ -15,7 +15,8 @@
     <header class="header">
       <div class="logo">AgentsMD<span class="logo-dot">.pro</span></div>
       <div class="auth-status">
-        <a href="landing.html#pricing" class="btn-link" style="font-size:13px;" data-i18n="header.about">About</a>
+        <a href="landing.html" class="btn-link" style="font-size:13px;" data-i18n="header.about">About</a>
+        <button class="btn-link header-donate-btn" onclick="showIndexDonateModal()" data-i18n="landing.nav_donate" style="font-size:13px;cursor:pointer;background:none;border:none;color:inherit;font-family:inherit;">Donate ☕</button>
         <button class="lang-btn btn-link" onclick="switchLang()" style="font-size:13px;margin-left:8px;cursor:pointer;background:none;border:none;color:inherit;">RU</button>
       </div>
     </header>
@@ -147,5 +148,9 @@
   <script src="js/templates.js"></script>
   <script src="js/paywall.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    // Header donate button — shows the same random donate modal
+    function showIndexDonateModal() { showUpgradeModal(); }
+  </script>
 </body>
 </html>

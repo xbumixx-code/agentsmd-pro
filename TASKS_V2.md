@@ -39,23 +39,21 @@
 
 ## MILESTONE 2 — Backend: оркестрация генерации
 
-### Task 2.1 — Новый API endpoint
-- [ ] Создать `api/generate-v2.js` (Vercel Edge Function)
-- [ ] Stage 1: вызов Analyzer → получить `project_dna`
-- [ ] Stage 2: параллельный запуск section generators (Promise.all)
-- [ ] Stage 3: вызов Consistency checker
-- [ ] Stage 4: Assembler → финальный файл
-- [ ] Если `mode=orchestrated` → дополнительные вызовы + Zipper
+### Task 2.1 — Новый API endpoint ✅
+- [x] Создать `api/generate-v2.js` (Vercel Edge Function)
+- [x] Stage 1: вызов Analyzer → получить `project_dna`
+- [x] Stage 2: параллельный запуск section generators (Promise.all)
+- [x] Stage 3: Assembler → финальный файл (`lib/assembler.js`)
+- [x] Если `mode=orchestrated` → доп. вызовы агентов + массив файлов
 
-### Task 2.2 — Streaming прогресса (SSE)
-- [ ] Переключить endpoint на Server-Sent Events
-- [ ] Отправлять события: `{ stage: 'analyzing' | 'identity' | 'rules' | ... | 'done' }`
-- [ ] Фронт подписывается через `EventSource` и показывает прогресс
+### Task 2.2 — Streaming прогресса (SSE) ✅
+- [x] Endpoint работает на Server-Sent Events (ReadableStream)
+- [x] Отправляет события: progress (stage+label) и done/error
+- [ ] Фронт подписывается через EventSource ← делаем в M3
 
-### Task 2.3 — ZIP endpoint
-- [ ] Создать `api/download-zip.js` (или inline в generate-v2)
-- [ ] Принимает набор файлов → отдаёт `application/zip`
-- [ ] Поддерживает структуру: `AGENTS.md` + `agents/` + `memory/`
+### Task 2.3 — ZIP (фронтенд-сторона)
+- [ ] ZIP создаётся на клиенте из массива files (orchestrated mode)
+- [ ] Кнопка "Download ZIP" в result.html
 
 ---
 

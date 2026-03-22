@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Result — AgentsMD.pro</title>
   <link rel="stylesheet" href="css/main.css">
-  <!-- highlight.js — light theme for light mode, dark theme for dark mode -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <!-- marked.js for markdown rendering -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+  <!-- JSZip for ZIP download in orchestrated mode -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/i18n.js"></script>
 </head>
@@ -26,32 +26,33 @@
       </div>
     </header>
 
-    <!-- Toast notification -->
-    <div id="copy-toast" class="toast" style="display: none;" data-i18n="result.copied">
-      ✓ Copied to clipboard
-    </div>
+    <!-- Toast -->
+    <div id="copy-toast" class="toast" style="display:none;" data-i18n="result.copied">✓ Copied to clipboard</div>
 
     <!-- Action bar -->
     <div class="result-actions">
-      <button id="copy-btn" class="btn-action">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2H3.5A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-        <span data-i18n="result.copy">Copy</span>
-      </button>
-      <button id="download-btn" class="btn-action">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M2 11v1.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <span data-i18n="result.download">Download AGENTS.md</span>
-      </button>
+      <!-- Simple mode actions -->
+      <div id="actions-simple">
+        <button id="copy-btn" class="btn-action">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2H3.5A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span data-i18n="result.copy">Copy</span>
+        </button>
+        <button id="download-btn" class="btn-action">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M2 11v1.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span data-i18n="result.download">Download AGENTS.md</span>
+        </button>
+      </div>
+      <!-- Orchestrated mode actions -->
+      <div id="actions-orchestrated" style="display:none;">
+        <button id="download-zip-btn" class="btn-action btn-action--primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M2 11v1.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span data-i18n="result.download_zip">Download ZIP</span>
+        </button>
+        <span id="files-count" class="meta-text" style="margin-left:0.5rem;"></span>
+      </div>
+      <!-- Always visible -->
       <button id="regen-btn" class="btn-action">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 8a6 6 0 1 0 1.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M2 4v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8a6 6 0 1 0 1.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M2 4v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span data-i18n="result.regen">Regenerate</span>
       </button>
       <a href="index.html" class="btn-action btn-new">
@@ -59,17 +60,22 @@
       </a>
     </div>
 
-    <!-- Result: rendered markdown -->
-    <div class="result-card">
+    <!-- Simple mode: single markdown view -->
+    <div id="view-simple" class="result-card">
       <div id="result-content" class="markdown-body">
-        <!-- Filled by result.js -->
         <div class="loading-placeholder" data-i18n="result.loading">Loading result...</div>
       </div>
     </div>
 
-    <!-- Raw text (for copying — hidden) -->
-    <textarea id="raw-content" style="position:absolute;left:-9999px;top:-9999px;" readonly></textarea>
+    <!-- Orchestrated mode: file tabs -->
+    <div id="view-orchestrated" style="display:none;">
+      <div class="file-tabs" id="file-tabs"></div>
+      <div class="result-card">
+        <div id="file-content" class="markdown-body"></div>
+      </div>
+    </div>
 
+    <textarea id="raw-content" style="position:absolute;left:-9999px;top:-9999px;" readonly></textarea>
   </div>
 
   <script src="js/result.js"></script>

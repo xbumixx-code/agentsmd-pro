@@ -21,119 +21,257 @@
       </div>
     </header>
 
-    <!-- Main form -->
     <main class="main">
       <div class="hero">
         <h1 data-i18n-html="landing.h1">Ready <code>AGENTS.md</code><br>in 30 seconds</h1>
         <p class="hero-sub" data-i18n="landing.sub">Project description → complete instructions for Claude Code, Cursor and any AI agents</p>
       </div>
 
-      <!-- API Key block -->
-      <div class="api-key-block" id="api-key-block">
-        <div class="api-key-header" onclick="toggleApiBlock()">
-          <span class="api-key-label">
-            <span id="api-key-status-dot" class="status-dot status-dot--empty"></span>
-            <span data-i18n="apikey.label">API Key</span>
-          </span>
-          <span id="api-key-summary" class="api-key-summary" data-i18n="apikey.not_set">not set</span>
-          <span class="api-key-chevron" id="api-key-chevron">▼</span>
+      <!-- ═══════ STEP 1: Main form ═══════ -->
+      <div id="step-1">
+
+        <!-- API Key block -->
+        <div class="api-key-block" id="api-key-block">
+          <div class="api-key-header" onclick="toggleApiBlock()">
+            <span class="api-key-label">
+              <span id="api-key-status-dot" class="status-dot status-dot--empty"></span>
+              <span data-i18n="apikey.label">API Key</span>
+            </span>
+            <span id="api-key-summary" class="api-key-summary" data-i18n="apikey.not_set">not set</span>
+            <span class="api-key-chevron" id="api-key-chevron">▼</span>
+          </div>
+          <div class="api-key-body" id="api-key-body" style="display:none;">
+            <div class="provider-tabs">
+              <button class="provider-tab active" id="tab-claude" onclick="selectProvider('claude')">Claude</button>
+              <button class="provider-tab" id="tab-openai" onclick="selectProvider('openai')">OpenAI</button>
+            </div>
+            <div class="api-key-hint" id="api-key-hint-claude" data-i18n-html="apikey.hint_claude">
+              Claude key: <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a>. Starts with <code>sk-ant-</code>
+            </div>
+            <div class="api-key-hint" id="api-key-hint-openai" style="display:none;" data-i18n-html="apikey.hint_openai">
+              OpenAI key (<code>gpt-5.4-mini</code>): <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a>. Starts with <code>sk-</code>
+            </div>
+            <div class="api-key-input-row">
+              <input type="password" id="user-api-key" data-i18n-placeholder="apikey.placeholder" placeholder="sk-..." autocomplete="off" />
+              <button class="btn-secondary" onclick="saveApiKey()" data-i18n="apikey.save">Save</button>
+            </div>
+            <div id="api-key-message" class="api-key-message"></div>
+          </div>
         </div>
-        <div class="api-key-body" id="api-key-body" style="display:none;">
-          <div class="provider-tabs">
-            <button class="provider-tab active" id="tab-claude" onclick="selectProvider('claude')">Claude</button>
-            <button class="provider-tab" id="tab-openai" onclick="selectProvider('openai')">OpenAI</button>
+
+        <!-- Quick templates -->
+        <div class="templates-section">
+          <p class="templates-label" data-i18n="templates.label">Quick start:</p>
+          <div id="templates-grid" class="templates-grid"></div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-card">
+          <div class="form-group">
+            <label for="description"><span data-i18n="form.description_label">Describe your project</span> <span class="required">*</span></label>
+            <textarea id="description" rows="4"
+              data-i18n-placeholder="form.description_placeholder"
+              placeholder="Example: Python FastAPI backend for a SaaS. PostgreSQL, Redis for caching. Deployed on Railway. Solo developer."
+              maxlength="1000"></textarea>
+            <div class="char-count"><span id="char-count">0</span>/1000</div>
           </div>
-          <div class="api-key-hint" id="api-key-hint-claude" data-i18n-html="apikey.hint_claude">
-            Claude key: <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a>. Starts with <code>sk-ant-</code>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="agent-type" data-i18n="form.type_label">Agent type</label>
+              <select id="agent-type">
+                <option value="code" data-i18n="form.type_code">Code — development</option>
+                <option value="data" data-i18n="form.type_data">Data — analytics</option>
+                <option value="ops" data-i18n="form.type_ops">Ops — infrastructure / DevOps</option>
+                <option value="research" data-i18n="form.type_research">Research — analysis</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="team-size" data-i18n="form.team_label">Team size</label>
+              <select id="team-size">
+                <option value="solo" data-i18n="form.team_solo">Solo (1 person)</option>
+                <option value="small" data-i18n="form.team_small">Small (2–5)</option>
+                <option value="team" data-i18n="form.team_team">Team (5+)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="language" data-i18n="form.lang_label">Output language</label>
+              <select id="language">
+                <option value="auto" data-i18n="form.lang_auto">Auto (match input)</option>
+                <option value="russian" data-i18n="form.lang_ru">Russian</option>
+                <option value="english" data-i18n="form.lang_en">English</option>
+              </select>
+            </div>
           </div>
-          <div class="api-key-hint" id="api-key-hint-openai" style="display:none;" data-i18n-html="apikey.hint_openai">
-            OpenAI key (<code>gpt-5.4-mini</code>): <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a>. Starts with <code>sk-</code>
+
+          <div class="form-group">
+            <label for="technologies" data-i18n="form.tech_label">Technologies (comma-separated)</label>
+            <input type="text" id="technologies"
+              data-i18n-placeholder="form.tech_placeholder"
+              placeholder="Python, FastAPI, PostgreSQL, Redis, Docker" />
           </div>
-          <div class="api-key-input-row">
-            <input type="password" id="user-api-key" data-i18n-placeholder="apikey.placeholder" placeholder="sk-..." autocomplete="off" />
-            <button class="btn-secondary" onclick="saveApiKey()" data-i18n="apikey.save">Save</button>
-          </div>
-          <div id="api-key-message" class="api-key-message"></div>
+
+          <button id="next-btn" class="btn-primary" disabled>
+            <span id="next-btn-text" data-i18n="form.next">Next →</span>
+          </button>
+          <div id="step1-error" class="error-message" style="display:none;margin-top:0.5rem;"></div>
         </div>
       </div>
 
-      <!-- Quick templates -->
-      <div class="templates-section">
-        <p class="templates-label" data-i18n="templates.label">Quick start:</p>
-        <div id="templates-grid" class="templates-grid">
-          <!-- Filled by templates.js -->
-        </div>
-      </div>
-
-      <!-- Form -->
-      <div class="form-card">
-        <div class="form-group">
-          <label for="description"><span data-i18n="form.description_label">Describe your project</span> <span class="required">*</span></label>
-          <textarea
-            id="description"
-            rows="4"
-            data-i18n-placeholder="form.description_placeholder"
-            placeholder="Example: Python FastAPI backend for a SaaS. PostgreSQL, Redis for caching. Deployed on Railway. Solo developer."
-            maxlength="1000"
-          ></textarea>
-          <div class="char-count"><span id="char-count">0</span>/1000</div>
+      <!-- ═══════ STEP 2: Brief + Mode ═══════ -->
+      <div id="step-2" style="display:none;">
+        <div class="step2-header">
+          <button onclick="goToStep1()" class="back-btn">← <span data-i18n="form.back">Back</span></button>
+          <div class="step2-title-group">
+            <h2 class="step2-title" data-i18n="form.brief_title">A few more details</h2>
+            <span class="optional-badge" data-i18n="form.brief_optional">optional</span>
+          </div>
+          <button onclick="skipBrief()" class="skip-btn btn-link" data-i18n="form.brief_skip">Skip →</button>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="agent-type" data-i18n="form.type_label">Agent type</label>
-            <select id="agent-type">
-              <option value="code" data-i18n="form.type_code">Code — development</option>
-              <option value="data" data-i18n="form.type_data">Data — analytics</option>
-              <option value="ops" data-i18n="form.type_ops">Ops — infrastructure / DevOps</option>
-              <option value="research" data-i18n="form.type_research">Research — analysis</option>
-            </select>
+        <!-- Universal questions (always shown) -->
+        <div class="brief-card">
+          <div class="brief-group">
+            <label for="brief-mistake" data-i18n="brief.mistake_label">Biggest mistake an AI agent could make here?</label>
+            <textarea id="brief-mistake" rows="2" data-i18n-placeholder="brief.mistake_ph" placeholder="e.g. Push to main without review, delete migrations, expose API keys..."></textarea>
           </div>
-
-          <div class="form-group">
-            <label for="team-size" data-i18n="form.team_label">Team size</label>
-            <select id="team-size">
-              <option value="solo" data-i18n="form.team_solo">Solo (1 person)</option>
-              <option value="small" data-i18n="form.team_small">Small (2–5)</option>
-              <option value="team" data-i18n="form.team_team">Team (5+)</option>
-            </select>
+          <div class="brief-group">
+            <label for="brief-done" data-i18n="brief.done_label">What does "task done" look like?</label>
+            <input type="text" id="brief-done" data-i18n-placeholder="brief.done_ph" placeholder="e.g. Tests pass, PR reviewed, deployed to staging" />
           </div>
-
-          <div class="form-group">
-            <label for="language" data-i18n="form.lang_label">Output language</label>
-            <select id="language">
-              <option value="auto" data-i18n="form.lang_auto">Auto (match input)</option>
-              <option value="russian" data-i18n="form.lang_ru">Russian</option>
-              <option value="english" data-i18n="form.lang_en">English</option>
-            </select>
+          <div class="brief-group">
+            <label for="brief-nonstandard" data-i18n="brief.nonstandard_label">Anything non-standard to know?</label>
+            <input type="text" id="brief-nonstandard" data-i18n-placeholder="brief.nonstandard_ph" placeholder="e.g. Legacy API contract, strict perf budget, unusual infra..." />
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="technologies" data-i18n="form.tech_label">Technologies (comma-separated)</label>
-          <input
-            type="text"
-            id="technologies"
-            data-i18n-placeholder="form.tech_placeholder"
-            placeholder="Python, FastAPI, PostgreSQL, Redis, Docker"
-          />
+        <!-- Code-specific questions -->
+        <div id="brief-code" class="brief-card brief-type-section">
+          <div class="brief-section-title" data-i18n="brief.code_title">Code project details</div>
+          <div class="brief-row">
+            <div class="brief-group">
+              <label for="brief-monorepo" data-i18n="brief.monorepo_label">Repository structure</label>
+              <select id="brief-monorepo">
+                <option value="" data-i18n="brief.select">Select...</option>
+                <option value="monorepo" data-i18n="brief.monorepo_yes">Monorepo</option>
+                <option value="single" data-i18n="brief.monorepo_no">Single repo</option>
+              </select>
+            </div>
+            <div class="brief-group">
+              <label for="brief-tests" data-i18n="brief.tests_label">Tests</label>
+              <select id="brief-tests">
+                <option value="" data-i18n="brief.select">Select...</option>
+                <option value="none" data-i18n="brief.tests_none">No tests</option>
+                <option value="some" data-i18n="brief.tests_some">Some tests</option>
+                <option value="full" data-i18n="brief.tests_full">Full coverage</option>
+              </select>
+            </div>
+          </div>
+          <div class="brief-row">
+            <div class="brief-group">
+              <label for="brief-cicd" data-i18n="brief.cicd_label">CI/CD</label>
+              <input type="text" id="brief-cicd" data-i18n-placeholder="brief.cicd_ph" placeholder="GitHub Actions, GitLab CI, Jenkins, none..." />
+            </div>
+            <div class="brief-group">
+              <label for="brief-legacy" data-i18n="brief.legacy_label">Legacy constraints</label>
+              <input type="text" id="brief-legacy" data-i18n-placeholder="brief.legacy_ph" placeholder="API v1 compat, old DB schema..." />
+            </div>
+          </div>
         </div>
 
-        <button id="generate-btn" class="btn-primary" disabled>
+        <!-- Data-specific questions -->
+        <div id="brief-data" class="brief-card brief-type-section" style="display:none;">
+          <div class="brief-section-title" data-i18n="brief.data_title">Data project details</div>
+          <div class="brief-row">
+            <div class="brief-group">
+              <label for="brief-batch" data-i18n="brief.batch_label">Processing type</label>
+              <select id="brief-batch">
+                <option value="" data-i18n="brief.select">Select...</option>
+                <option value="batch" data-i18n="brief.batch_batch">Batch</option>
+                <option value="streaming" data-i18n="brief.batch_stream">Streaming</option>
+                <option value="both" data-i18n="brief.batch_both">Both</option>
+              </select>
+            </div>
+            <div class="brief-group">
+              <label for="brief-sensitivity" data-i18n="brief.sensitivity_label">Data sensitivity</label>
+              <select id="brief-sensitivity">
+                <option value="none" data-i18n="brief.sensitivity_none">No PII</option>
+                <option value="pii" data-i18n="brief.sensitivity_pii">PII</option>
+                <option value="hipaa">HIPAA</option>
+                <option value="gdpr">GDPR</option>
+              </select>
+            </div>
+          </div>
+          <div class="brief-group">
+            <label for="brief-orchestration" data-i18n="brief.orchestration_label">Orchestration tool</label>
+            <input type="text" id="brief-orchestration" data-i18n-placeholder="brief.orchestration_ph" placeholder="Airflow, Prefect, dbt, Dagster, none..." />
+          </div>
+        </div>
+
+        <!-- Ops-specific questions -->
+        <div id="brief-ops" class="brief-card brief-type-section" style="display:none;">
+          <div class="brief-section-title" data-i18n="brief.ops_title">Ops project details</div>
+          <div class="brief-row">
+            <div class="brief-group">
+              <label for="brief-cloud" data-i18n="brief.cloud_label">Cloud provider</label>
+              <input type="text" id="brief-cloud" data-i18n-placeholder="brief.cloud_ph" placeholder="AWS, GCP, Azure, Hetzner..." />
+            </div>
+            <div class="brief-group">
+              <label for="brief-iac" data-i18n="brief.iac_label">IaC tool</label>
+              <input type="text" id="brief-iac" data-i18n-placeholder="brief.iac_ph" placeholder="Terraform, Pulumi, Ansible, none..." />
+            </div>
+          </div>
+          <div class="brief-group">
+            <label for="brief-compliance" data-i18n="brief.compliance_label">Compliance requirements</label>
+            <input type="text" id="brief-compliance" data-i18n-placeholder="brief.compliance_ph" placeholder="SOC2, ISO 27001, PCI DSS, none..." />
+          </div>
+        </div>
+
+        <!-- Mode selector -->
+        <div class="mode-selector brief-card">
+          <div class="brief-section-title" data-i18n="form.mode_label">Output format</div>
+          <div class="mode-options">
+            <label class="mode-option">
+              <input type="radio" name="gen-mode" value="simple" checked>
+              <div class="mode-card">
+                <div class="mode-card-title" data-i18n="form.mode_simple_title">Simple</div>
+                <div class="mode-card-desc" data-i18n="form.mode_simple_desc">One AGENTS.md file · ~15 sec</div>
+              </div>
+            </label>
+            <label class="mode-option">
+              <input type="radio" name="gen-mode" value="orchestrated">
+              <div class="mode-card">
+                <div class="mode-card-title" data-i18n="form.mode_orch_title">Orchestrated</div>
+                <div class="mode-card-desc" data-i18n="form.mode_orch_desc">Full agent system (ZIP) · ~30 sec</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <button id="generate-btn" class="btn-primary">
           <span id="btn-text" data-i18n="form.submit">Generate AGENTS.md</span>
-          <span id="btn-loader" class="loader" style="display: none;"></span>
+          <span id="btn-loader" class="loader" style="display:none;"></span>
         </button>
+        <div id="step2-error" class="error-message" style="display:none;margin-top:0.5rem;"></div>
+      </div>
+
+      <!-- ═══════ PROGRESS PANEL ═══════ -->
+      <div id="progress-panel" style="display:none;">
+        <div class="progress-card">
+          <div class="progress-title" data-i18n="progress.title">Generating your AGENTS.md...</div>
+          <div class="progress-stages" id="progress-stages"></div>
+          <div class="progress-note" data-i18n="progress.note">~15–30 seconds · powered by your API key</div>
+        </div>
       </div>
 
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
-      <a href="landing.html" data-i18n="footer.about">About</a> · <a href="landing.html#pricing" data-i18n="footer.pricing">Pricing</a>
+      <a href="landing.html" data-i18n="footer.about">About</a>
     </footer>
   </div>
 
-  <!-- Donate / Upgrade Modal (hidden, shown via paywall.js) -->
+  <!-- Donate Modal -->
   <div id="upgrade-overlay" class="modal-overlay" style="display: none;">
     <div class="modal">
       <div class="modal-icon">⚡</div>
@@ -149,7 +287,6 @@
   <script src="js/paywall.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // Header donate button — shows the same random donate modal
     function showIndexDonateModal() { showUpgradeModal(); }
   </script>
 </body>

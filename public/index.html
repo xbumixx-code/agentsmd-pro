@@ -25,6 +25,7 @@
       <div class="hero">
         <h1 data-i18n-html="landing.h1">Ready <code>AGENTS.md</code><br>in 30 seconds</h1>
         <p class="hero-sub" data-i18n="landing.sub">Project description → complete instructions for Claude Code, Cursor and any AI agents</p>
+        <button class="what-is-btn" onclick="showWhatIsModal()" data-i18n="hero.what_is">What is this? →</button>
       </div>
 
       <!-- ═══════ STEP 1: Main form ═══════ -->
@@ -271,6 +272,15 @@
     </footer>
   </div>
 
+  <!-- What is this? Modal -->
+  <div id="whatis-overlay" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeWhatIs()">
+    <div class="modal whatis-modal">
+      <button class="whatis-close" onclick="closeWhatIs()">✕</button>
+      <div class="whatis-body" id="whatis-body"></div>
+      <button class="btn-primary" onclick="closeWhatIs()" data-i18n="hero.modal_close" style="margin-top:1.5rem;width:100%;">Got it, let's go →</button>
+    </div>
+  </div>
+
   <!-- Donate Modal -->
   <div id="upgrade-overlay" class="modal-overlay" style="display: none;">
     <div class="modal">
@@ -288,6 +298,120 @@
   <script src="js/app.js"></script>
   <script>
     function showIndexDonateModal() { showUpgradeModal(); }
+
+    // "What is this?" modal content per language
+    const WHATIS_CONTENT = {
+      en: `
+        <h2 style="font-size:1.15rem;font-weight:600;margin-bottom:1.25rem;letter-spacing:-0.02em;">How AgentsMD works</h2>
+
+        <div class="whatis-section">
+          <div class="whatis-step">
+            <span class="whatis-num">1</span>
+            <div>
+              <strong>What is AGENTS.md?</strong>
+              <p>A file in the root of your project that tells an AI agent (Claude Code, Cursor, Copilot) how to work with your codebase — rules, stack, structure, commands. Without it the agent guesses. With it — it works like an experienced teammate.</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">2</span>
+            <div>
+              <strong>Set your API key first</strong>
+              <p>This service uses <em>your own</em> Claude or OpenAI key — it never touches our server. Open the API Key block at the top, paste your key, save. The key is encrypted locally and stays in your browser only.</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">3</span>
+            <div>
+              <strong>Describe your project well</strong>
+              <p>The more specific — the better the result. Include: what it does, how it's deployed, who's on the team. <em>Bad:</em> "web app". <em>Good:</em> "Python FastAPI backend for SaaS, PostgreSQL, deployed on Railway, solo developer."</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">4</span>
+            <div>
+              <strong>Fill in the brief on Step 2</strong>
+              <p>Optional, but valuable. The best question: <em>"What's the biggest mistake an AI agent could make in your project?"</em> — your answer directly becomes a rule in the file.</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">5</span>
+            <div>
+              <strong>Choose Simple or Orchestrated</strong>
+              <p><strong>Simple</strong> — one AGENTS.md with 12 sections, ready in ~15 sec. Good for most projects.<br><strong>Orchestrated</strong> — full agent system in a ZIP: main file + sub-agents (planner, coder, reviewer) + shared memory. For complex projects with Claude Code.</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">6</span>
+            <div>
+              <strong>Put the file in your project root</strong>
+              <p>Copy or download <code>AGENTS.md</code>, place it in the root of your repo. Claude Code and Cursor will pick it up automatically on the next session.</p>
+            </div>
+          </div>
+        </div>`,
+
+      ru: `
+        <h2 style="font-size:1.15rem;font-weight:600;margin-bottom:1.25rem;letter-spacing:-0.02em;">Как работает AgentsMD</h2>
+
+        <div class="whatis-section">
+          <div class="whatis-step">
+            <span class="whatis-num">1</span>
+            <div>
+              <strong>Что такое AGENTS.md?</strong>
+              <p>Файл в корне проекта, который объясняет AI-агенту (Claude Code, Cursor, Copilot) как работать с кодовой базой — правила, стек, структура, команды. Без него агент угадывает. С ним — работает как опытный коллега.</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">2</span>
+            <div>
+              <strong>Сначала установи API ключ</strong>
+              <p>Сервис использует <em>твой собственный</em> ключ Claude или OpenAI — он не попадает на наш сервер. Открой блок API Key вверху, вставь ключ, сохрани. Ключ шифруется локально и остаётся только в браузере.</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">3</span>
+            <div>
+              <strong>Опиши проект конкретно</strong>
+              <p>Чем конкретнее — тем лучше результат. Укажи: что делает, как деплоится, кто в команде. <em>Плохо:</em> "веб-приложение". <em>Хорошо:</em> "Python FastAPI backend для SaaS, PostgreSQL, деплой на Railway, один разработчик."</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">4</span>
+            <div>
+              <strong>Заполни бриф на Шаге 2</strong>
+              <p>Необязательно, но ценно. Лучший вопрос: <em>"Какую главную ошибку мог бы совершить AI-агент в твоём проекте?"</em> — твой ответ напрямую становится правилом в файле.</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">5</span>
+            <div>
+              <strong>Выбери Simple или Orchestrated</strong>
+              <p><strong>Simple</strong> — один AGENTS.md с 12 секциями, готов за ~15 сек. Подходит большинству.<br><strong>Orchestrated</strong> — полная система агентов в ZIP: главный файл + агенты (planner, coder, reviewer) + общая память. Для сложных проектов с Claude Code.</p>
+            </div>
+          </div>
+          <div class="whatis-step">
+            <span class="whatis-num">6</span>
+            <div>
+              <strong>Положи файл в корень проекта</strong>
+              <p>Скопируй или скачай <code>AGENTS.md</code>, помести в корень репозитория. Claude Code и Cursor подхватят его автоматически при следующей сессии.</p>
+            </div>
+          </div>
+        </div>`
+    };
+
+    function showWhatIsModal() {
+      const lang = localStorage.getItem('agentsmd_lang') || 'en';
+      document.getElementById('whatis-body').innerHTML = WHATIS_CONTENT[lang] || WHATIS_CONTENT.en;
+      // Apply i18n to the close button
+      const closeBtn = document.querySelector('#whatis-overlay .btn-primary');
+      if (closeBtn && typeof t === 'function') closeBtn.textContent = t('hero.modal_close');
+      document.getElementById('whatis-overlay').style.display = 'flex';
+    }
+
+    function closeWhatIs() {
+      document.getElementById('whatis-overlay').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWhatIs(); });
   </script>
 </body>
 </html>

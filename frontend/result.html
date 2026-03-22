@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Результат — AgentsMD.pro</title>
+  <link rel="stylesheet" href="css/main.css">
+  <!-- highlight.js — светлая тема для light mode, тёмная для dark mode -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- marked.js для рендера markdown -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+  <script src="js/config.js"></script>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Хедер -->
+    <header class="header">
+      <a href="index.html" class="logo">AgentsMD<span class="logo-dot">.pro</span></a>
+      <div class="result-meta">
+        <span id="tokens-info" class="meta-text"></span>
+      </div>
+    </header>
+
+    <!-- Статус/уведомление -->
+    <div id="copy-toast" class="toast" style="display: none;">
+      ✓ Скопировано в буфер обмена
+    </div>
+
+    <!-- Панель действий -->
+    <div class="result-actions">
+      <button id="copy-btn" class="btn-action">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2H3.5A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        Копировать
+      </button>
+      <button id="download-btn" class="btn-action">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M2 11v1.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Скачать AGENTS.md
+      </button>
+      <button id="regen-btn" class="btn-action">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 8a6 6 0 1 0 1.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M2 4v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Регенерировать
+      </button>
+      <a href="index.html" class="btn-action btn-new">
+        + Новый файл
+      </a>
+    </div>
+
+    <!-- Результат: rendered markdown -->
+    <div class="result-card">
+      <div id="result-content" class="markdown-body">
+        <!-- Заполняется через result.js -->
+        <div class="loading-placeholder">Загружаем результат...</div>
+      </div>
+    </div>
+
+    <!-- Сырой текст (для копирования — скрыт) -->
+    <textarea id="raw-content" style="position:absolute;left:-9999px;top:-9999px;" readonly></textarea>
+
+  </div>
+
+  <script src="js/result.js"></script>
+</body>
+</html>

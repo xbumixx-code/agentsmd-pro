@@ -60,11 +60,24 @@ export default async function handler(request) {
     return Response.json(errBody, { status: errResponse.status, headers: CORS });
   }
 
+  // Increment public counter (fire-and-forget, never blocks the response)
+  incrementCounter(process.env.COUNTER_SECRET).catch(() => {});
+
   return Response.json({
     content: generatedContent,
     tokens_used: tokensUsed,
     generation_id: crypto.randomUUID(),
   }, { headers: CORS });
+}
+
+// Increment the public generation counter in Cloudflare Worker
+async function incrementCounter(secret) {
+  const s = secret || (typeof COUNTER_SECRET !== 'undefined' ? COUNTER_SECRET : '');
+  if (!s) return;
+  await fetch('https://agentsmd-counter.threadshelper.workers.dev/increment', {
+    method: 'POST',
+    headers: { 'X-Secret': s },
+  });
 }
 
 async function callClaudeAPI(userMessage, apiKey) {

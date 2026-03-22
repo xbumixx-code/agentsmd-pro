@@ -1,0 +1,7 @@
+name = "agentsmd-counter"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "COUNTER_KV"
+id = "d1b123077657452ba0ac3c261297f1fb"

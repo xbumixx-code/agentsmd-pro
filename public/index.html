@@ -26,6 +26,10 @@
         <h1 data-i18n-html="landing.h1">Ready <code>AGENTS.md</code><br>in 30 seconds</h1>
         <p class="hero-sub" data-i18n="landing.sub">Project description → complete instructions for Claude Code, Cursor and any AI agents</p>
         <button class="what-is-btn" onclick="showWhatIsModal()" data-i18n="hero.what_is">What is this? →</button>
+        <div class="hero-counter">
+          <span class="hero-counter-num" id="hero-count">—</span>
+          <span class="hero-counter-label" data-i18n="hero.counter_label">AGENTS.md files generated</span>
+        </div>
       </div>
 
       <!-- ═══════ STEP 1: Main form ═══════ -->
@@ -298,6 +302,17 @@
   <script src="js/app.js"></script>
   <script>
     function showIndexDonateModal() { showUpgradeModal(); }
+
+    // Load public generation counter from CF Worker
+    async function loadCounter() {
+      try {
+        const r = await fetch('https://agentsmd-counter.threadshelper.workers.dev/');
+        const { count } = await r.json();
+        const el = document.getElementById('hero-count');
+        if (el) el.textContent = count.toLocaleString();
+      } catch (e) { /* silent — counter is decorative */ }
+    }
+    loadCounter();
 
     // "What is this?" modal content per language
     const WHATIS_CONTENT = {

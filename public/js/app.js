@@ -237,13 +237,18 @@ function handleSSEEvent(event, payload) {
       input:         payload,
     }));
 
+    const countBefore = parseInt(localStorage.getItem('agentsmd_gen_count') || '0');
     trackGenerationAndMaybeShowDonate();
-    const shouldDonate = parseInt(localStorage.getItem('agentsmd_gen_count') || '0') % 3 === 0;
+    const shouldDonate = (countBefore + 1) % 3 === 0;
 
     if (shouldDonate) {
-      const overlay     = document.getElementById('upgrade-overlay');
-      const continueBtn = overlay?.querySelector('.btn-link');
-      if (continueBtn) continueBtn.onclick = () => { window.location.href = 'result.html'; };
+      // After donate modal — redirect on any dismiss action
+      const overlay = document.getElementById('upgrade-overlay');
+      const goToResult = () => { window.location.href = 'result.html'; };
+      overlay?.querySelectorAll('.btn-link, .modal-cta').forEach(btn => {
+        btn.addEventListener('click', () => setTimeout(goToResult, 200));
+      });
+      overlay.onclick = (e) => { if (e.target === overlay) goToResult(); };
     } else {
       window.location.href = 'result.html';
     }

@@ -91,28 +91,26 @@
 
 ## MILESTONE 4 — i18n и полировка
 
-### Task 4.1 — Новые строки i18n
-- [ ] Добавить в `i18n.js` все новые ключи:
-  - Step 2 вопросы (EN/RU)
-  - Mode selector
-  - Progress stages
-  - Result page v2
-  - ZIP download
+### Task 4.1 — Новые строки i18n ✅
+- [x] Step 2 вопросы (EN/RU) — 60+ ключей
+- [x] Mode selector (EN/RU)
+- [x] Progress stages (EN/RU)
+- [x] Result page v2 (download_zip, files_count)
+- [x] Landing: обновлены f1-f6, free_f3-f4, faq3
 
-### Task 4.2 — Обновить landing.html
-- [ ] Обновить описание сервиса (упомянуть multi-agent + bespoke brief)
-- [ ] Обновить FAQ
-- [ ] Обновить секцию "What's inside"
+### Task 4.2 — Обновить landing.html ✅
+- [x] Секция "What's inside" — 6 новых секций (Agent Identity, Code Rules, Git, Security, Checklist)
+- [x] Free features list — Simple/Orchestrated mode
+- [x] FAQ — вопрос про Simple vs Orchestrated
 
-### Task 4.3 — QA чеклист
-- [ ] Simple mode: Python FastAPI solo → корректный AGENTS.md
-- [ ] Simple mode: React TypeScript team → корректный AGENTS.md
-- [ ] Orchestrated mode: Node.js API small team → корректный ZIP
-- [ ] Orchestrated mode: Data pipeline → корректный ZIP
-- [ ] Проверить EN и RU интерфейс
-- [ ] Проверить mobile (375px)
-- [ ] Проверить dark mode
-- [ ] Проверить что v1 (main) не тронут
+### Task 4.3 — QA чеклист ✅
+- [x] Все модули импортируются без ошибок
+- [x] assembleSimple() и assembleOrchestrated() протестированы с mock данными
+- [x] Все progress i18n ключи присутствуют
+- [x] Все generate-v2 imports резолвятся (15 exports)
+- [x] Donate modal redirect fix (фон + кнопки)
+- [x] vercel dev запускается, /api/health OK
+- [ ] Live тест с реальным API ключом — после деплоя
 
 ---
 

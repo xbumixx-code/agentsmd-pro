@@ -7,28 +7,28 @@
 
 ## MILESTONE 1 — Новые промпты и логика генерации
 
-### Task 1.1 — Analyzer prompt
-- [ ] Создать `lib/prompts-v2.js`
-- [ ] Написать ANALYZER_PROMPT: принимает описание + ответы на бриф → возвращает `project_dna` (JSON)
+### Task 1.1 — Analyzer prompt ✅
+- [x] Создать `lib/prompts-v2.js`
+- [x] Написать ANALYZER_PROMPT: принимает описание + ответы на бриф → возвращает `project_dna` (JSON)
   - constraints, risks, tech_rules, team_behavior, anti_patterns
-- [ ] Протестировать на 3 типах проектов (code / data / ops)
+- [ ] Протестировать на 3 типах проектов (code / data / ops) ← делаем в Task 2.1
 
-### Task 1.2 — Section generator prompts (6 штук)
-- [ ] `IDENTITY_PROMPT` → секция "Agent Identity & Mission"
-- [ ] `RULES_PROMPT` → секция "Code Quality Rules" (с цифрами, под стек)
-- [ ] `WORKFLOW_PROMPT` → секция "Development Workflow" (TDD если нужен)
-- [ ] `GIT_PROMPT` → секция "Git Protocol" (адаптивно под team_size)
-- [ ] `SECURITY_PROMPT` → секция "Security Rules"
-- [ ] `CHECKLIST_PROMPT` → секция "Pre-Completion Checklist"
-- [ ] Каждый промпт принимает `project_dna` как контекст
+### Task 1.2 — Section generator prompts (6 штук) ✅
+- [x] `IDENTITY_PROMPT` → секция "Agent Identity & Mission"
+- [x] `RULES_PROMPT` → секция "Code Quality Rules" (с цифрами, под стек)
+- [x] `WORKFLOW_PROMPT` → секция "Development Workflow" (TDD если нужен)
+- [x] `GIT_PROMPT` → секция "Git Protocol" (адаптивно под team_size)
+- [x] `SECURITY_PROMPT` → секция "Security Rules"
+- [x] `CHECKLIST_PROMPT` → секция "Pre-Completion Checklist"
+- [x] Каждый промпт принимает `project_dna` как контекст
 
-### Task 1.3 — Orchestrated mode prompts (если mode=orchestrated)
-- [ ] `ORCHESTRATOR_PROMPT` → главный AGENTS.md (легкий, только дирижёр)
-- [ ] `CODER_AGENT_PROMPT` → agents/coder.md
-- [ ] `REVIEWER_AGENT_PROMPT` → agents/reviewer.md
-- [ ] `TESTER_AGENT_PROMPT` → agents/tester.md
-- [ ] `PLANNER_AGENT_PROMPT` → agents/planner.md
-- [ ] `MEMORY_TEMPLATES` → memory/WORK_LOG.md, DECISIONS.md, CONTEXT.md (шаблоны)
+### Task 1.3 — Orchestrated mode prompts ✅
+- [x] `ORCHESTRATOR_PROMPT` → главный AGENTS.md (легкий, только дирижёр)
+- [x] `CODER_AGENT_PROMPT` → agents/coder.md
+- [x] `REVIEWER_AGENT_PROMPT` → agents/reviewer.md
+- [x] `TESTER_AGENT_PROMPT` → agents/tester.md
+- [x] `PLANNER_AGENT_PROMPT` → agents/planner.md
+- [x] `MEMORY_TEMPLATES_PROMPT` → memory/WORK_LOG.md, DECISIONS.md, CONTEXT.md
 
 ### Task 1.4 — Consistency checker + assembler
 - [ ] `CONSISTENCY_PROMPT` → проверяет противоречия между секциями
